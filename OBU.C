@@ -28,7 +28,6 @@ void UART1_Init (void);
 void OSCILLATOR_Init (void);
 
 //----------------------------------------------
-
 	unsigned char Assign;
 	unsigned char ID_Received;
 	unsigned char ID_Sent;
@@ -40,7 +39,6 @@ void OSCILLATOR_Init (void);
     	unsigned char Status;
     	long int n;
 
-    
 // ----------RX and TX Functions----------------
 
 	void RX (void);
@@ -55,15 +53,9 @@ void OSCILLATOR_Init (void);
 	void RWDTX (unsigned int x, unsigned int y);
     	void RXinit (unsigned char *init);
 //----------------------------------------------
-
 	int i;
-
 	sbit LED1 = P2^2;
-
 	unsigned int Vehid;
-
-    
-
 //----------------------------------------------
 
 void main (void)
@@ -131,11 +123,11 @@ void main (void)
 	
 	if (Status == 0xAB)	 
    	{ 
-	RX_byte1 (&ID_Received);
-	RX_byte3 (&L1);
-	RX_byte4 (&L2);
-	RX_byte5 (&L3);
-	//RWDRX_byte6 (&L4);
+		RX_byte1 (&ID_Received);
+		RX_byte3 (&L1);
+		RX_byte4 (&L2);
+		RX_byte5 (&L3);
+		//RWDRX_byte6 (&L4);
     	}
 
    	RXinit (&init);
@@ -143,10 +135,8 @@ void main (void)
 	Assign = 0xAB;
 	TX ();
 	RXinit (&init);
-
-// Second group of data
-   			 
-   			 
+	
+// Second group of data		 
 //----------------------Vehicle 4--------------------//    
   	DataTransfer (0x7d, 0xb1, 0xb4, 0x74, 0x15, 0xc3);
 	DataTransfer (0x84, 0x3b, 0x97, 0x49, 0x92, 0xb9);
@@ -253,20 +243,15 @@ void main (void)
         	{    
             	//for (i = 0; i<= 10000; i++);
             	//LED1 = ~LED1;
-
-   	 
-
-           	 
+	 
             	if (ID_Received == 0x00AA)
             	for (i = 0; i<= 10000; i++);
             	LED1 = ~LED1;
        	 
-           	 
             	if (ID_Received == 0x00BB)
             	for (i = 0; i<= 7500; i++);
             	LED1 = ~LED1;
-
-  	 
+		
             	if (ID_Received == 0x00CC)
             	for (i = 0; i<= 3000; i++);
             	LED1 = ~LED1;
@@ -347,37 +332,21 @@ void RX_byte5 (unsigned char *L3)
 }
 
 void RWDRX_byte6 (unsigned char *L4)
-
 {
-
-SCON0=0x50;
-
+	SCON0=0x50;
 	RI0=0;
-
 	while (RI0==0); //Reception
-
 	*L4 = SBUF0;
-
-	 
    	RI0=0;
-
 }
 
 void RX_byte7 (unsigned char *Status)
 {
-
-    SCON0=0x50;
-
+    	SCON0=0x50;
 	RI0=0;
-
 	while (RI0==0); //Reception
-
 	*Status = SBUF0;
-
-	 
    	RI0=0;
-
-
 }
 
 void RWDTX (unsigned int x, unsigned int y)
@@ -385,41 +354,26 @@ void RWDTX (unsigned int x, unsigned int y)
 {
 	Assign = x;
 	TX();
-
 	Assign = y;
 	TX();
-
 }
-
-
 
 
 void RX (void)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
-
 	while (RI0==0); //Reception
-
     	RI0=0;
-
 }
 
 void RXinit (unsigned char *init)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
-
 	while (RI0==0); //Reception
-    
-    *init = SBUF0;
-
+    	*init = SBUF0;
     	RI0=0;
-
 }
 
 //----------------- TX Definitons --------------
@@ -427,16 +381,10 @@ void RXinit (unsigned char *init)
 void TX (void)
 {
 	SCON0=0x40;
-
 	TI0 = 0;
-    
 	SBUF0 = Assign;
-
 	while  (TI0 == 0);
-
 	TI0 = 0;
-   	 
-
 }
 
 //----------------- DataTranfer Definitons --------------
@@ -445,9 +393,8 @@ unsigned int Long1, unsigned int Long2, unsigned int TS)
 {
 
 //----------------------System Initialization--------------------//  
-    Assign = 0xAB;  
-    TX ();
-
+    	Assign = 0xAB;  
+    	TX ();
    // while (byte == 0xA4)
 	RXinit (&init);
     	Assign = 0xCA;
@@ -463,84 +410,39 @@ unsigned int Long1, unsigned int Long2, unsigned int TS)
 	TX();
 
 //----------Latitude-------//  
-
- 
 	Assign = Lat1;
-
 	TX();
-
- 
 	Assign = Lat2;
-
 	TX();
-
 //----------Speed-------//  
-
- 
 	Assign = 0x79;
-
 	TX();
 
 //----------Heading-------//  
-
- 
 	Assign = 0xAE;
-
 	TX();  
-
- 
 	Assign = 0xEB;
-
 	TX();
 
 //----------Timestamp-------//  
-
- 
 	Assign = TS;
-
 	TX();
-
- 
 	Assign = 0x15;
-
 	TX();
-
- 
 	Assign = 0xCA;
-
 	TX();
-
- 
 	Assign = 0x57;
-
 	TX();
-
- 
 	Assign = 0x10;
-
 	TX();	 
-
- 
 	Assign = 0xFD;
-
 	TX();  
-
- 
 	Assign = 0xBF;
-
 	TX();
-
- 
 	Assign = 0x47;
-
 	TX();  
-
- 
 	Assign = 0x65;
-
 	TX();
-
-
 }
     
 
