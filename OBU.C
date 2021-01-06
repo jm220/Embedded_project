@@ -235,27 +235,7 @@ void main (void)
 		 for (i = 0; i<= 10000; i++);
 		 LED1 = ~LED1;
    	 }
-
-	//RWDRX_byte6 (&L4);
     }
-     	/*while (1)
-
-        	{    
-            	//for (i = 0; i<= 10000; i++);
-            	//LED1 = ~LED1;
-	 
-            	if (ID_Received == 0x00AA)
-            	for (i = 0; i<= 10000; i++);
-            	LED1 = ~LED1;
-       	 
-            	if (ID_Received == 0x00BB)
-            	for (i = 0; i<= 7500; i++);
-            	LED1 = ~LED1;
-		
-            	if (ID_Received == 0x00CC)
-            	for (i = 0; i<= 3000; i++);
-            	LED1 = ~LED1;
-        	}*/
 //----------------- Display --------------//
 	
 	n = time();
