@@ -51,16 +51,15 @@ void OSCILLATOR_Init (void);
 
 	void RX (void);
 	void TX (void);
-	void DataTransfer (unsigned int, unsigned int, unsigned int, unsigned int, unsigned int,
-	unsigned int);
-	 void RX_byte1 (unsigned int *ID_Received);
+	void DataTransfer (unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int);
+	void RX_byte1 (unsigned int *ID_Received);
 	void RX_byte3 (unsigned char *L1);
 	void RX_byte4 (unsigned char *L2);
 	void RX_byte5 (unsigned char *L3);
 	void RWDRX_byte6 (unsigned char *L4);
-    void RX_byte7 (unsigned char *Status);
+    	void RX_byte7 (unsigned char *Status);
 	void RWDTX (unsigned int x, unsigned int y);
-    void RXinit (unsigned char *init);
+    	void RXinit (unsigned char *init);
 //----------------------------------------------
 
 	int i;
