@@ -21,13 +21,9 @@ sfr16 SBRL1 = 0xB4;
 #define BAUDRATE1 	115200       	// Baud rate of UART1 in bps
 
 void SYSTEMCLOCK_Init (void);
-
 void PORT_Init (void);
-
 void UART0_Init (void);
-
 void UART1_Init (void);
-
 void OSCILLATOR_Init (void);
 
 //----------------------------------------------
@@ -60,7 +56,7 @@ void OSCILLATOR_Init (void);
 	unsigned char X, Y, X1, X2, Y1, Y2;
 
 	unsigned char init;
-    unsigned int n;
+   	unsigned int n;
 
 // ----------RX and TX Functions----------------
 
@@ -92,13 +88,8 @@ void OSCILLATOR_Init (void);
 //----------------------------------------------
 
 	int i, index;
-
 	sbit LED1 = P2^2;
-
-
-
 	unsigned char GPS_data [9][6];
-
 	sbit compare_points = P1^1;
 	sbit compare_time = P1^2;
 
@@ -108,63 +99,39 @@ void main (void)
 {
 
 	UART0_Init ();                  	// initialize UART0
-
 	PORT_Init ();                   	// Initialize crossbar and GPIO
-
 	OSCILLATOR_Init ();
-
 	TMOD=0x20;
-
 	TH1=0xFD;
-	 
 	TR1=1;
-
 	EA=1;
-
 	PCA0MD&= ~0x40;
-
 	
-
-
-	//--------------Fixed Reference Points------------------
+//--------------Fixed Reference Points------------------
 	// point 1
 	A1 = 0x01;
-
 	B1 = 0x02;
-
 	C1 = 0x03;
-
 	D1 = 0x04;
 
 	// point 2
-
 	A2 = 0x05;
-
 	B2 = 0x06;
-
 	C2 = 0x07;
-
 	D2 = 0x08;
 
 	// point 3
-    
 	A3 = 0xA1;
-
 	B3 = 0xB1;
-
 	C3 = 0xC1;
-
 	D3 = 0xD1;
 	
-	//----------Initialization----------
-	
+//----------Initialization----------	
 	//RX_byte2 (&Long1);
-
     //----------car1----------
 do
 {
 	RX();
-
 	GPS_data [0][0] = ID;
 	GPS_data [0][1] = Lat1;
 	GPS_data [0][2] = Lat2;
@@ -173,7 +140,6 @@ do
 	GPS_data [0][5] = Timestamp1;
 
 	RX();
-
 	GPS_data [1][0] = ID;
 	GPS_data [1][1] = Lat1;
 	GPS_data [1][2] = Lat2;
@@ -182,7 +148,6 @@ do
 	GPS_data [1][5] = Timestamp1;
 
 	RX();
-
 	GPS_data [2][0] = ID;
 	GPS_data [2][1] = Lat1;
 	GPS_data [2][2] = Lat2;
@@ -193,7 +158,6 @@ do
 	//---------------car2---------------
 
 	RX();
-
 	GPS_data [3][0] = ID;
 	GPS_data [3][1] = Lat1;
 	GPS_data [3][2] = Lat2;
@@ -202,7 +166,6 @@ do
 	GPS_data [3][5] = Timestamp1;
 
 	RX();
-
 	GPS_data [4][0] = ID;
 	GPS_data [4][1] = Lat1;
 	GPS_data [4][2] = Lat2;
@@ -211,7 +174,6 @@ do
 	GPS_data [4][5] = Timestamp1;
 
 	RX();
-
 	GPS_data [5][0] = ID;
 	GPS_data [5][1] = Lat1;
 	GPS_data [5][2] = Lat2;
@@ -222,7 +184,6 @@ do
 	//----------------car3-------------
 
 	RX();
-
 	GPS_data [6][0] = ID;
 	GPS_data [6][1] = Lat1;
 	GPS_data [6][2] = Lat2;
@@ -231,7 +192,6 @@ do
 	GPS_data [6][5] = Timestamp1;
 
 	RX();
-
 	GPS_data [7][0] = ID;
 	GPS_data [7][1] = Lat1;
 	GPS_data [7][2] = Lat2;
@@ -240,7 +200,6 @@ do
 	GPS_data [7][5] = Timestamp1;
 
 	RX();
-
 	GPS_data [8][0] = ID;
 	GPS_data [8][1] = Lat1;
 	GPS_data [8][2] = Lat2;
@@ -250,15 +209,9 @@ do
 
 
 	//RX_X(&X);
-
 	//RX_Y(&Y);
-
-    
-
 	{
-    
 		index = 0;   
-
 		while (index <=2)
 		{
 			compare_time = ((GPS_data[3*index][5] < GPS_data[(3*index)+1][5]) && (GPS_data[(3*index)+1][5] < GPS_data[(3*index)+2][5]));
@@ -267,11 +220,11 @@ do
        		&&(A2 == GPS_data[(3*index)+1][1])&&(B2 == GPS_data[(3*index)+1][2])&&(C2 == GPS_data[(3*index)+1][3])&&(D2 == GPS_data[(3*index)+1][4])
    	     	&&(A3 == GPS_data[(3*index)+2][1])&&(B3 == GPS_data[(3*index)+2][2])&&(C3 == GPS_data[(3*index)+2][3])&&(D3 == GPS_data[(3*index)+2][4]));
 			
-			index++;
-					
+			index++;					
 			if (compare_time && compare_points)
 
-			{	Assign = 0xAB;
+			{	
+				Assign = 0xAB;
 				TX();
 			
 				Assign = GPS_data[3*(index-1)][0];
@@ -286,17 +239,12 @@ do
 				Assign = 0x44; // D
 				TX();
   	 
-	 
-
-   		 	//for (i = 0; i<= 10000; i++);
-       		//LED1 = ~LED1;
-
-			//VictimWarning ();
-
+   		 		//for (i = 0; i<= 10000; i++);
+       				//LED1 = ~LED1;
+				//VictimWarning ();
 			}
 				
 		}
-
 //----------------------next group initilization----------------------
 	Assign = 0x47;
 	TX();	
@@ -309,11 +257,9 @@ do
 	Assign = 0x48;
 	TX();
 
-  }
+     }
  
-}
-
-while (1);
+  }
 
 } 
 // end main
@@ -327,16 +273,11 @@ void VictimWarning ()
 	Y1 = 0x50;
 	Y2 = 0x60;
 
-	
-
-if((X1 <= X)&&(X2 >= X)&&(Y1 <= Y)&&(Y2 >= Y));
-
+	if((X1 <= X)&&(X2 >= X)&&(Y1 <= Y)&&(Y2 >= Y));
 	{
 		Assign = 0x66; // f
 		TX();
-
 	}
-
 }
 
 //----------------- Initialization --------------
@@ -369,84 +310,56 @@ if((X1 <= X)&&(X2 >= X)&&(Y1 <= Y)&&(Y2 >= Y));
 
 void RX (void)
 {
-    
 	RX_GEN (&init);
-
 	Assign = 0xA4;	
-
+	
 	TX();
-
-
-    RX_GEN (&init);
+    	RX_GEN (&init);
 
 	//Assign = 0xD3;
-
 	//TX();    
-
 //----------------- Data transfer --------------
 
 	RX_byte1 (&ID);
-	
 	RX_byte2 (&Long1);
-
 	RX_byte3 (&Long2);
-
 	RX_byte4 (&Lat1);
-
 	RX_byte5 (&Lat2);
 
 	RX_byte6 ();
-
 	RX_byte7 ();
-
 	RX_byte8 ();
 
 	RX_byte9 (&Timestamp1);
-
 	RX_byte10 (&Timestamp2);
-
 	RX_byte11 (&Timestamp3);
-
 	RX_byte12 (&Timestamp4);
-
 	RX_byte13 (&Timestamp5);
-
 	RX_byte14 (&Timestamp6);
-
 	RX_byte15 (&Timestamp7);
-
 	RX_byte16 (&Timestamp8);
-
 	RX_byte17 (&Timestamp9);
-
-   	 
 }
 
 void RX_GEN (unsigned char *init)
 {
 
     SCON0=0x50;
-
     RI0=0;
-
+	
     while (RI0==0); //Reception
 	*init = SBUF0;
-
         RI0=0;
-
 }
 
 
 void RX_X (unsigned char *X)
 {
 	SCON0=0x50;
-
 	RI0=0;
 
 	while (RI0==0); //Reception
-
 	*X = SBUF0;
-
 	 
     	RI0=0;
 
@@ -456,14 +369,11 @@ void RX_X (unsigned char *X)
 void RX_Y (unsigned char *Y)
 {
 	SCON0=0x50;
-
 	RI0=0;
 
 	while (RI0==0); //Reception
-
 	*Y = SBUF0;
-
-	 
+	
     	RI0=0;
 
 
@@ -473,14 +383,11 @@ void RX_byte1 (unsigned char *ID)
 {
 
 	SCON0=0x50;
-
 	RI0=0;
 
 	while (RI0==0); //Reception
 
 	*ID = SBUF0;
-
-	 
     	RI0=0;
 
 
@@ -488,16 +395,11 @@ void RX_byte1 (unsigned char *ID)
 
 void RX_byte2 (unsigned char *Long1)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
-
 	while (RI0==0); //Reception
 
 	*Long1 = SBUF0;
-    
-
     	RI0=0;
 
 
@@ -506,34 +408,24 @@ void RX_byte2 (unsigned char *Long1)
 
 void RX_byte3 (unsigned char *Long2)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
 
 	while (RI0==0); //Reception
-
 	*Long2 = SBUF0;
 	 
-
     	RI0=0;
-
-
-
 }
 
 void RX_byte4 (unsigned char *Lat1)
 {
 
 	SCON0=0x50;
-
 	RI0=0;
-
+	
 	while (RI0==0); //Reception
 
 	*Lat1= SBUF0;
-   
-
     	RI0=0;
 
 
@@ -541,99 +433,62 @@ void RX_byte4 (unsigned char *Lat1)
 
 void RX_byte5 (unsigned char *Lat2)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
 
 	while (RI0==0); //Reception
 
 	*Lat2 = SBUF0;
-	 
-
     	RI0=0;
-
-
-
-
 }
 
 void RX_byte6 (void)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
 
 	while (RI0==0); //Reception
 
 	Speed = SBUF0;
-
     	RI0=0;
-
-
-
 }
 
 void RX_byte7 (void)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
 
 	while (RI0==0); //Reception
 
 	Heading1 = SBUF0;
-
     	RI0=0;
-
-
-
-
 }
 
 void RX_byte8 (void)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
 
 	while (RI0==0); //Reception
 
 	Heading2 = SBUF0;
-
     	RI0=0;
-
-
-
-
 }
 
 void RX_byte9 (unsigned char *Timestamp1)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
 
 	while (RI0==0); //Reception
 
 	*Timestamp1 = SBUF0;
-
     	RI0=0;
-
-
-
-
 }
 
 void RX_byte10 (unsigned char *Timestamp2)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
 
 	while (RI0==0); //Reception
@@ -646,37 +501,24 @@ void RX_byte10 (unsigned char *Timestamp2)
 
 void RX_byte11 (unsigned char *Timestamp3)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
 
 	while (RI0==0); //Reception
 
 	*Timestamp3 = SBUF0;
-
     	RI0=0;
-
-
-
-
 }
 
 void RX_byte12 (unsigned char *Timestamp4)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
 
 	while (RI0==0); //Reception
 
 	*Timestamp4 = SBUF0;
-
     	RI0=0;
-
-
-
 }
 
 void RX_byte13 (unsigned char *Timestamp5)
