@@ -63,7 +63,7 @@ void main (void)
 
 	UART0_Init ();                  	// initialize UART0
 	PORT_Init ();                   	// Initialize crossbar and GPIO
-	//UART1_Init ();
+	UART1_Init ();
 	OSCILLATOR_Init ();
 	
 	TMOD=0x20;
