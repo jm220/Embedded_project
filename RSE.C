@@ -343,15 +343,14 @@ void RX (void)
 
 void RX_GEN (unsigned char *init)
 {
-
-    SCON0=0x50;
-    RI0=0;
-	
-    while (RI0==0); //Reception
+	SCON0=0x50;
+	RI0=0;
+    	
+	while (RI0==0); //Reception
 	*init = SBUF0;
+	
         RI0=0;
 }
-
 
 void RX_X (unsigned char *X)
 {
@@ -359,11 +358,9 @@ void RX_X (unsigned char *X)
 	RI0=0;
 
 	while (RI0==0); //Reception
-	*X = SBUF0;
-	 
+	*X = SBUF0; 
+	
     	RI0=0;
-
-
 }
 
 void RX_Y (unsigned char *Y)
@@ -375,35 +372,28 @@ void RX_Y (unsigned char *Y)
 	*Y = SBUF0;
 	
     	RI0=0;
-
-
 }
 
 void RX_byte1 (unsigned char *ID)
 {
-
 	SCON0=0x50;
 	RI0=0;
-
+	
 	while (RI0==0); //Reception
-
 	*ID = SBUF0;
+	
     	RI0=0;
-
-
 }
 
 void RX_byte2 (unsigned char *Long1)
 {
 	SCON0=0x50;
 	RI0=0;
+	
 	while (RI0==0); //Reception
-
 	*Long1 = SBUF0;
+	
     	RI0=0;
-
-
-
 }
 
 void RX_byte3 (unsigned char *Long2)
@@ -424,11 +414,9 @@ void RX_byte4 (unsigned char *Lat1)
 	RI0=0;
 	
 	while (RI0==0); //Reception
-
 	*Lat1= SBUF0;
+	
     	RI0=0;
-
-
 }
 
 void RX_byte5 (unsigned char *Lat2)
@@ -437,8 +425,8 @@ void RX_byte5 (unsigned char *Lat2)
 	RI0=0;
 
 	while (RI0==0); //Reception
-
 	*Lat2 = SBUF0;
+	
     	RI0=0;
 }
 
@@ -448,8 +436,8 @@ void RX_byte6 (void)
 	RI0=0;
 
 	while (RI0==0); //Reception
-
 	Speed = SBUF0;
+	
     	RI0=0;
 }
 
@@ -459,8 +447,8 @@ void RX_byte7 (void)
 	RI0=0;
 
 	while (RI0==0); //Reception
-
 	Heading1 = SBUF0;
+	
     	RI0=0;
 }
 
@@ -470,8 +458,8 @@ void RX_byte8 (void)
 	RI0=0;
 
 	while (RI0==0); //Reception
-
 	Heading2 = SBUF0;
+	
     	RI0=0;
 }
 
@@ -481,9 +469,9 @@ void RX_byte9 (unsigned char *Timestamp1)
 	RI0=0;
 
 	while (RI0==0); //Reception
-
 	*Timestamp1 = SBUF0;
-    	RI0=0;
+    	
+	RI0=0;
 }
 
 void RX_byte10 (unsigned char *Timestamp2)
@@ -492,11 +480,9 @@ void RX_byte10 (unsigned char *Timestamp2)
 	RI0=0;
 
 	while (RI0==0); //Reception
-
 	*Timestamp2 = SBUF0;
 
     	RI0=0;
-
 }
 
 void RX_byte11 (unsigned char *Timestamp3)
@@ -505,8 +491,8 @@ void RX_byte11 (unsigned char *Timestamp3)
 	RI0=0;
 
 	while (RI0==0); //Reception
-
 	*Timestamp3 = SBUF0;
+	
     	RI0=0;
 }
 
@@ -516,90 +502,63 @@ void RX_byte12 (unsigned char *Timestamp4)
 	RI0=0;
 
 	while (RI0==0); //Reception
-
 	*Timestamp4 = SBUF0;
+	
     	RI0=0;
 }
 
 void RX_byte13 (unsigned char *Timestamp5)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
 
 	while (RI0==0); //Reception
-
 	*Timestamp5 = SBUF0;
 
     	RI0=0;
-
-
-
-
 }
 
 void RX_byte14 (unsigned char *Timestamp6)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
-
 	while (RI0==0); //Reception
-
 	*Timestamp6 = SBUF0;
 
     	RI0=0;
-
-
-
 }
 
 void RX_byte15 (unsigned char *Timestamp7)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
-
+	
 	while (RI0==0); //Reception
-
 	*Timestamp7 = SBUF0;
 
     	RI0=0;
-
-
 }
 
 void RX_byte16 (unsigned char *Timestamp8)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
 
 	while (RI0==0); //Reception
-
 	*Timestamp8 = SBUF0;
 
     	RI0=0;
-
 }
 
 void RX_byte17 (unsigned char *Timestamp9)
 {
-
 	SCON0=0x50;
-
 	RI0=0;
 
 	while (RI0==0); //Reception
-
 	*Timestamp9 = SBUF0;
 
     	RI0=0;
-
 }
 
 
@@ -608,16 +567,11 @@ void RX_byte17 (unsigned char *Timestamp9)
 void TX (void)
 {
 	SCON0=0x40;
-
-	TI0 = 0;
-    
+	TI0 = 0;  
 	SBUF0 = Assign;
 
 	while  (TI0 == 0);
-
 	TI0 = 0;
-   	 
-
 }
 
 
