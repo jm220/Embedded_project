@@ -9,7 +9,7 @@
 // 16-bit SFR Definitions for 'F34x
 //-----------------------------------------------------------------------------
 
-sfr16 SBRL1 = 0xB4;
+sfr16 SBRL1 = 0xB4;    //defines a 16-bit special function register in address 0xB4
 
 //-----------------------------------------------------------------------------
 // Global CONSTANTS
@@ -60,14 +60,16 @@ void OSCILLATOR_Init (void);
 
 void main (void)
 {
-
+//Initialization Functions////////////////////////////////////
+//////////////////////////////////////////////////////////////
 	UART0_Init ();                  	// initialize UART0
 	PORT_Init ();                   	// Initialize crossbar and GPIO
 	UART1_Init ();
-	OSCILLATOR_Init ();
+	OSCILLATOR_Init ();			
+//////////////////////////////////////////////////////////////
 	
-	TMOD=0x20;
-	TH1=0xFD;
+	TMOD=0x20;		//TMOD is the the TIME MODE CONTROL REGISTER 
+	TH1=0xFD;		
 	TR1=1;
 	EA=1;
 	PCA0MD&= ~0x40;
