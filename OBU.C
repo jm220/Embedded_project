@@ -249,34 +249,22 @@ void main (void)
 void RX_byte1 (unsigned char *ID_Received)
 {
 
-	SCON0=0x50;
-
+	SCON0=0x50;      	//data that will be transmitted
 	RI0=0;
-
-	while (RI0==0); //Reception
-
+	while (RI0==0); 	//Reception wait for data to be transmitted
 	*ID_Received = SBUF0;
-
-	 
-    	RI0=0;
+    	RI0=0;          	//Clear TX flag for next cycle
 
 }
 
 
 void RX_byte3 (unsigned char *L1)
 {
-
-	SCON0=0x50;
-
+	SCON0=0x50;		
 	RI0=0;
-
-	while (RI0==0); //Reception
-
-	*L1 = SBUF0;
-
-	 
+	while (RI0==0); 	//Wait for data
+	*L1 = SBUF0;	 
     	RI0=0;
-
 }
 
 void RX_byte4 (unsigned char *L2)
